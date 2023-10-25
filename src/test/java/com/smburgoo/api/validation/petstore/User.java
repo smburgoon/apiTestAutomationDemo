@@ -3,18 +3,6 @@ package com.smburgoo.api.validation.petstore;
 import java.util.Objects;
 
 public class User {
-
-    /*
-    "username": "smburgoo",
-  "firstName": "shane",
-  "lastName": "burgoon",
-  "email": "smburgoo@gmail.com",
-  "password": "CorrectHorseBatteryStaple",
-  "phone": "8888888888",
-  "userStatus": 0
-
-     */
-
     private String username;
     private String firstName;
     private String lastName;
@@ -93,5 +81,18 @@ public class User {
     @Override
     public int hashCode() {
         return Objects.hash(username, firstName, lastName, email, password, phone, userStatus);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", phone='" + phone + '\'' +
+                ", userStatus=" + userStatus +
+                '}';
     }
 }
