@@ -30,6 +30,9 @@ public class UpgradeTest {
     private static String basePath;
     private static int port;
 
+    static Map<String,String> postHeaders = new HashMap<>();
+
+
     static User testUser;
 
     static ObjectMapper mapper = new ObjectMapper().configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
@@ -44,6 +47,11 @@ public class UpgradeTest {
         basePath = config.getBasePath();
         port = config.getPort();
 
+        postHeaders.put("Content-type", "application/json");
+        postHeaders.put("x-cf-source-id", "coding-challenge-smburgoo");
+        postHeaders.put("x-cf-corr-id", UUID.randomUUID().toString());
+
+
 /*
         RestAssured.useRelaxedHTTPSValidation();
 */
@@ -57,15 +65,10 @@ public class UpgradeTest {
         borrowerApiCreateRequest.setLoanAppUuid("b8096ec7-2150-405f-84f5-ae99864b3e96");
         borrowerApiCreateRequest.setSkipSideEffects(true);
 
-        Map<String,String> headers = new HashMap<>();
-        headers.put("Content-type", "application/json");
-        headers.put("x-cf-source-id", "coding-challenge-smburgoo");
-        headers.put("x-cf-corr-id", UUID.randomUUID().toString());
-
         String testRequestDataJson = mapper.writeValueAsString(borrowerApiCreateRequest);
         System.out.println("attempting to create the following borrower: " + testRequestDataJson);
         Response response = given()
-                .headers(headers)
+                .headers(postHeaders)
                 .and()
                 .body(testRequestDataJson)
                 .when()
@@ -89,15 +92,10 @@ public class UpgradeTest {
         borrowerApiCreateRequest.setLoanAppUuid(UUID.randomUUID().toString());
         borrowerApiCreateRequest.setSkipSideEffects(true);
 
-        Map<String,String> headers = new HashMap<>();
-        headers.put("Content-type", "application/json");
-        headers.put("x-cf-source-id", "coding-challenge-smburgoo");
-        headers.put("x-cf-corr-id", UUID.randomUUID().toString());
-
         String testRequestDataJson = mapper.writeValueAsString(borrowerApiCreateRequest);
         System.out.println("attempting to create the following borrower: " + testRequestDataJson);
         Response response = given()
-                .headers(headers)
+                .headers(postHeaders)
                 .and()
                 .body(testRequestDataJson)
                 .when()
@@ -107,8 +105,6 @@ public class UpgradeTest {
                 .extract().response();
 
         Assertions.assertEquals(404, response.statusCode(), "Unexpected status code");
-
     }
-
-
+    
 }
