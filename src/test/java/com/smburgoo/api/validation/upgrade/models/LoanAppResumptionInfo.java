@@ -14,7 +14,7 @@ public class LoanAppResumptionInfo {
     private String desiredAmount;
     private LoanAppBorrowerResumptionInfo borrowerResumptionInfo;
 
-    private LoanAppCoBorrowerResumptionInfo coBorrowerResumptionInfo = null;
+    private LoanAppCoBorrowerResumptionInfo coBorrowerResumptionInfo;
 
     private Boolean turnDown;
     private Boolean hasLogin;
@@ -23,11 +23,86 @@ public class LoanAppResumptionInfo {
     private Double cashOutAmount;
     private Boolean canAddCollateral;
     private String rewardProgramCode;
+    private String rewardProgramId;
     private String addon;
-    private Boolean isMobileDiscountApplied;
+    private String isMobileDiscountApplied;
     private Boolean checkingDiscountAvailable;
 
+    private Boolean plDepositBundleEligible;
+
+    private String welcomeBonusCode;
+
+    public Boolean getPlDepositBundleEligible() {
+        return plDepositBundleEligible;
+    }
+
+    public void setPlDepositBundleEligible(Boolean plDepositBundleEligible) {
+        this.plDepositBundleEligible = plDepositBundleEligible;
+    }
+
     public LoanAppResumptionInfo() {
+    }
+
+    public String getWelcomeBonusCode() {
+        return welcomeBonusCode;
+    }
+
+    public void setWelcomeBonusCode(String welcomeBonusCode) {
+        this.welcomeBonusCode = welcomeBonusCode;
+    }
+
+    @Override
+    public String toString() {
+        return "LoanAppResumptionInfo{" +
+                "loanAppId='" + loanAppId + '\'' +
+                ", loanAppUuid='" + loanAppUuid + '\'' +
+                ", referrer='" + referrer + '\'' +
+                ", productType='" + productType + '\'' +
+                ", status='" + status + '\'' +
+                ", sourceSystem='" + sourceSystem + '\'' +
+                ", desiredAmount='" + desiredAmount + '\'' +
+                ", borrowerResumptionInfo=" + borrowerResumptionInfo +
+                ", coBorrowerResumptionInfo=" + coBorrowerResumptionInfo +
+                ", turnDown=" + turnDown +
+                ", hasLogin=" + hasLogin +
+                ", availableAppImprovements=" + availableAppImprovements +
+                ", cashOutAmount=" + cashOutAmount +
+                ", canAddCollateral=" + canAddCollateral +
+                ", rewardProgramCode='" + rewardProgramCode + '\'' +
+                ", rewardProgramId='" + rewardProgramId + '\'' +
+                ", addon='" + addon + '\'' +
+                ", isMobileDiscountApplied='" + isMobileDiscountApplied + '\'' +
+                ", checkingDiscountAvailable=" + checkingDiscountAvailable +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LoanAppResumptionInfo that = (LoanAppResumptionInfo) o;
+        return Objects.equals(loanAppId, that.loanAppId) && Objects.equals(loanAppUuid, that.loanAppUuid) && Objects.equals(referrer, that.referrer) && Objects.equals(productType, that.productType) && Objects.equals(status, that.status) && Objects.equals(sourceSystem, that.sourceSystem) && Objects.equals(desiredAmount, that.desiredAmount) && Objects.equals(borrowerResumptionInfo, that.borrowerResumptionInfo) && Objects.equals(coBorrowerResumptionInfo, that.coBorrowerResumptionInfo) && Objects.equals(turnDown, that.turnDown) && Objects.equals(hasLogin, that.hasLogin) && Objects.equals(availableAppImprovements, that.availableAppImprovements) && Objects.equals(cashOutAmount, that.cashOutAmount) && Objects.equals(canAddCollateral, that.canAddCollateral) && Objects.equals(rewardProgramCode, that.rewardProgramCode) && Objects.equals(rewardProgramId, that.rewardProgramId) && Objects.equals(addon, that.addon) && Objects.equals(isMobileDiscountApplied, that.isMobileDiscountApplied) && Objects.equals(checkingDiscountAvailable, that.checkingDiscountAvailable);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(loanAppId, loanAppUuid, referrer, productType, status, sourceSystem, desiredAmount, borrowerResumptionInfo, coBorrowerResumptionInfo, turnDown, hasLogin, availableAppImprovements, cashOutAmount, canAddCollateral, rewardProgramCode, rewardProgramId, addon, isMobileDiscountApplied, checkingDiscountAvailable);
+    }
+
+    public String getIsMobileDiscountApplied() {
+        return isMobileDiscountApplied;
+    }
+
+    public void setIsMobileDiscountApplied(String isMobileDiscountApplied) {
+        this.isMobileDiscountApplied = isMobileDiscountApplied;
+    }
+
+    public String getRewardProgramId() {
+        return rewardProgramId;
+    }
+
+    public void setRewardProgramId(String rewardProgramId) {
+        this.rewardProgramId = rewardProgramId;
     }
 
     public String getStatus() {
@@ -95,11 +170,11 @@ public class LoanAppResumptionInfo {
     }
 
     public LoanAppCoBorrowerResumptionInfo getCoBorrowerResumptionInfo() {
-        return null;
+        return coBorrowerResumptionInfo;
     }
 
     public void setCoBorrowerResumptionInfo(LoanAppCoBorrowerResumptionInfo coBorrowerResumptionInfo) {
-        this.coBorrowerResumptionInfo = null;
+        this.coBorrowerResumptionInfo = coBorrowerResumptionInfo;
     }
 
     public Boolean getTurnDown() {
@@ -158,14 +233,6 @@ public class LoanAppResumptionInfo {
         this.addon = addon;
     }
 
-    public Boolean getMobileDiscountApplied() {
-        return isMobileDiscountApplied;
-    }
-
-    public void setMobileDiscountApplied(Boolean mobileDiscountApplied) {
-        isMobileDiscountApplied = mobileDiscountApplied;
-    }
-
     public Boolean getCheckingDiscountAvailable() {
         return checkingDiscountAvailable;
     }
@@ -174,40 +241,4 @@ public class LoanAppResumptionInfo {
         this.checkingDiscountAvailable = checkingDiscountAvailable;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        LoanAppResumptionInfo that = (LoanAppResumptionInfo) o;
-        return Objects.equals(loanAppId, that.loanAppId) && Objects.equals(loanAppUuid, that.loanAppUuid) && Objects.equals(referrer, that.referrer) && Objects.equals(productType, that.productType) && Objects.equals(status, that.status) && Objects.equals(sourceSystem, that.sourceSystem) && Objects.equals(desiredAmount, that.desiredAmount) && Objects.equals(borrowerResumptionInfo, that.borrowerResumptionInfo) && Objects.equals(coBorrowerResumptionInfo, that.coBorrowerResumptionInfo) && Objects.equals(turnDown, that.turnDown) && Objects.equals(hasLogin, that.hasLogin) && Objects.equals(availableAppImprovements, that.availableAppImprovements) && Objects.equals(cashOutAmount, that.cashOutAmount) && Objects.equals(canAddCollateral, that.canAddCollateral) && Objects.equals(rewardProgramCode, that.rewardProgramCode) && Objects.equals(addon, that.addon) && Objects.equals(isMobileDiscountApplied, that.isMobileDiscountApplied) && Objects.equals(checkingDiscountAvailable, that.checkingDiscountAvailable);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(loanAppId, loanAppUuid, referrer, productType, status, sourceSystem, desiredAmount, borrowerResumptionInfo, coBorrowerResumptionInfo, turnDown, hasLogin, availableAppImprovements, cashOutAmount, canAddCollateral, rewardProgramCode, addon, isMobileDiscountApplied, checkingDiscountAvailable);
-    }
-
-    @Override
-    public String toString() {
-        return "LoanAppResumptionInfo{" +
-                "loanAppId='" + loanAppId + '\'' +
-                ", loanAppUuid='" + loanAppUuid + '\'' +
-                ", referrer='" + referrer + '\'' +
-                ", productType='" + productType + '\'' +
-                ", status='" + status + '\'' +
-                ", sourceSystem='" + sourceSystem + '\'' +
-                ", desiredAmount='" + desiredAmount + '\'' +
-                ", borrowerResumptionInfo=" + borrowerResumptionInfo +
-                ", coBorrowerResumptionInfo=" + coBorrowerResumptionInfo +
-                ", turnDown=" + turnDown +
-                ", hasLogin=" + hasLogin +
-                ", availableAppImprovements=" + availableAppImprovements +
-                ", cashOutAmount=" + cashOutAmount +
-                ", canAddCollateral=" + canAddCollateral +
-                ", rewardProgramCode='" + rewardProgramCode + '\'' +
-                ", addon='" + addon + '\'' +
-                ", isMobileDiscountApplied=" + isMobileDiscountApplied +
-                ", checkingDiscountAvailable=" + checkingDiscountAvailable +
-                '}';
-    }
 }

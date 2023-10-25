@@ -106,5 +106,5 @@ public class UpgradeTest {
 
         Assertions.assertEquals(404, response.statusCode(), "Unexpected status code");
     }
-    
+
 }
