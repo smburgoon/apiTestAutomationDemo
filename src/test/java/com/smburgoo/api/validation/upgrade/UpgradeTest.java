@@ -8,9 +8,7 @@ import com.smburgoo.api.validation.config.Configuration;
 import com.smburgoo.api.validation.petstore.User;
 import com.smburgoo.api.validation.upgrade.models.BorrowerApiCreateRequest;
 import com.smburgoo.api.validation.upgrade.models.BorrowerApiResponse;
-import io.restassured.RestAssured;
 import io.restassured.filter.log.LogDetail;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -20,7 +18,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-import static com.smburgoo.api.validation.petstore.PetstoreUtils.generateRandomTestUser;
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.head;
 
