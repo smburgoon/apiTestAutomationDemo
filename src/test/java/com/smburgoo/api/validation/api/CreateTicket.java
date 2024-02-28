@@ -1,4 +1,4 @@
-package com.smburgoo.api.validation.petstore;
+package com.smburgoo.api.validation.api;
 
 import java.util.List;
 import java.util.Objects;
