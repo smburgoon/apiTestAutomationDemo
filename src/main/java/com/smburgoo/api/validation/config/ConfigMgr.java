@@ -1,29 +1,14 @@
-/*
- * MIT License
- *
- * Copyright (c) 2023 Shane Burgoon
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
 package com.smburgoo.api.validation.config;
 
 
+/*
+This class is intended to manage the source of configuration used by the test to execute
+ possible sources may be AWS S3, parameter store, local properties files, GitHub repositories, etc.
+ this makes it easier to swap sources without making changes to the base configuration the test needs to run with
+
+ I did not implement this for the purposes of this test, as I am not using remote sources and do not have time; however
+ I did want to demonstrate conceptually that I find value in this type of manager pattern
+*/
 public final class ConfigMgr {
 
     private static Configuration config;

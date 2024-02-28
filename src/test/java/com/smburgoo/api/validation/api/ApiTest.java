@@ -15,7 +15,8 @@ import static com.smburgoo.api.validation.api.ApiUtils.generateTicket;
 import static io.restassured.RestAssured.given;
 
 public class ApiTest {
-    private static Configuration config;
+    private static Configuration config; // TODO implement against ConfigMgr class to manage source of the configuration, such as AWS S3, local properties files, etc
+
     private static String baseURI;
     private static String basePath;
     private static int port;
@@ -26,6 +27,9 @@ public class ApiTest {
 
     @BeforeAll
     public static void setup() {
+
+        // TODO this configuration should live somewhere outside of the code, probably
+          // hard code config for purposes of this test
         config = new Configuration();
 
         baseURI = config.getBaseURI();
