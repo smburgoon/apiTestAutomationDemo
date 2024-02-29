@@ -31,6 +31,8 @@ public class ApiTest {
         // TODO this configuration should live somewhere outside of the code, probably
           // hard code config for purposes of this test
         config = new Configuration();
+        config.setBaseURI("http://localhost:4200/api/RequestForm");
+
 
         baseURI = config.getBaseURI();
         basePath = config.getBasePath();
@@ -39,8 +41,8 @@ public class ApiTest {
         RestAssured.useRelaxedHTTPSValidation();
     }
 
-    @BeforeAll
-    public static void postCreateTicket() throws JsonProcessingException {
+    @Test
+    public void postCreateTicket() throws JsonProcessingException {
         testTicket = generateTicket();
         String testTicketJson = mapper.writeValueAsString(testTicket);
         System.out.println("attempting to create the following ticket: " + testTicketJson);
@@ -49,18 +51,14 @@ public class ApiTest {
                 .and()
                 .body(testTicketJson)
                 .when()
-                .post("http://localhost:4200/api/RequestForm")
+                .post(baseURI)
                 .then()
                 .extract().response();
 
         System.out.println("ticket creation response" + response.getHeaders().toString());
 
         Assertions.assertEquals(200, response.statusCode(), "Unexpected status code");
-//        Assertions.assertEquals(200, response.jsonPath().getInt("code"), "");
-//        Assertions.assertEquals("unknown", response.jsonPath().getString("type"));
 
-
-//        Assertions.assertEquals("1", response.jsonPath().getString("message"));
     }
 
     // validate getting a known existing ticket works (by ID)
@@ -69,7 +67,7 @@ public class ApiTest {
         can store as json data alongside tests for each case of known users
      */
     @Test
-    public void getKnownTicket() {
+    public void getKnownTicketExpectingSuccess() {
         Ticket knownTicket = new Ticket();
         knownTicket.setTitle("knownTicket");
         knownTicket.setDescription("knownDescription");
@@ -87,6 +85,90 @@ public class ApiTest {
         Assertions.assertEquals(knownTicket.getDescription(), response.jsonPath().getString("description"));
         Assertions.assertEquals(knownTicket.getDateTime(), response.jsonPath().getString("dateTime"));
         Assertions.assertEquals(knownTicket.getTags().toString(), response.jsonPath().getString("tags"));
+    }
+
+    @Test
+    public void getNonexistentTicketExpectingNotFound() {
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .when()
+                .get("http://localhost:4200/api/RequestForm/" + "92a52622-0af2-417c-956b-ec401feb185c")
+                .then()
+                .extract().response();
+
+        Assertions.assertEquals(404, response.statusCode());
+    }
+
+    @Test
+    public void putUpdateTicketHappyPath() throws JsonProcessingException {
+        Ticket updateTicket = new Ticket();
+        updateTicket.setTitle("knownTicket");
+        updateTicket.setDescription("knownDescription");
+        updateTicket.setDateTime("2024-02-14T05:00:00.000Z");
+
+        String knownTicketId = "92a52663-0af2-417c-956b-ec401feb185c";
+
+        String testTicketJson = mapper.writeValueAsString(updateTicket);
+        System.out.println("attempting to update the following ticket: " + testTicketJson);
+
+        Response response = given()
+                .header("Content-type", "application/json")
+                .and()
+                .body(testTicketJson)
+                .when()
+                .put(baseURI + "/" + knownTicketId)
+                .then()
+                .extract().response();
+
+        Assertions.assertEquals(200, response.statusCode());
+    }
+
+    @Test
+    public void putUpdateTicketUnhappyPath() throws JsonProcessingException {
+        Ticket updateTicket = new Ticket();
+        updateTicket.setTitle("knownTicket");
+        updateTicket.setDescription("knownDescription");
+        updateTicket.setDateTime("invalid");
+
+        String knownTicketId = "92a52663-0af2-417c-956b-ec401feb185c";
+
+        String testTicketJson = mapper.writeValueAsString(updateTicket);
+        System.out.println("attempting to update the following ticket: " + testTicketJson);
+
+        Response response = given()
+                .header("Content-type", "application/json")
+                .and()
+                .body(testTicketJson)
+                .when()
+                .put(baseURI + "/" + knownTicketId)
+                .then()
+                .extract().response();
+
+        Assertions.assertEquals(400, response.statusCode());
+    }
+
+    @Test
+    public void deleteExistingTicketExpectingSuccess() {
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .when()
+                .delete("http://localhost:4200/api/RequestForm/" + "92a52663-0af2-417c-956b-ec401feb185c")
+                .then()
+                .extract().response();
+
+        Assertions.assertEquals(200, response.statusCode());
+    }
+
+    @Test
+    public void deleteNonexistentTicketExpectingNotFound() {
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .when()
+                .delete("http://localhost:4200/api/RequestForm/" + "92a52622-0af2-417c-956b-ec401feb185c")
+                .then()
+                .extract().response();
+
+        Assertions.assertEquals(404, response.statusCode());
     }
 
 }
